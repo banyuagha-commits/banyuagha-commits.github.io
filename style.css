@@ -1,0 +1,79 @@
+
+    /* ---------- THEME VARIABLES (change these to tune colors) ---------- */
+    :root{
+      --bg#000: #000000; /* main background */
+      --panel: #070712;   /* dark panel */
+      --accent: #0b64d6;  /* your blue */
+      --muted: #9aa6bf;   /* muted text */
+      --glass: rgba(255,255,255,0.03);
+      --card-radius: 12px;
+      --max-width: 980px;
+    }
+
+    /* ---------- BASIC LAYOUT ---------- */
+    *{box-sizing:border-box}
+    html,body{background:#000!important;color:#fff;display:flex;justify-content:center;padding:40px}
+    body{background:var(--bg#000);color:#fff;display:flex;justify-content:center;padding:40px}
+    .wrap{width:100%;max-width:var(--max-width)}
+
+    /* ---------- HERO WITH BACKGROUND ART ---------- */
+    .hero{
+      position:relative;overflow:hidden;border-radius:18px;background:#000000;padding:48px 40px;display:flex;gap:28px;align-items:center
+    }
+
+    /* Layered artwork: update the URLs below to your own images (recommended: 1200–2000px width PNG or SVG). */
+    .hero::before{
+      /* Big faded saxophone in back */
+      content:"";position:absolute;inset:0;opacity:0.08;pointer-events:none;background-repeat:no-repeat;background-position:right center;background-size:55%;
+      /* CHANGE THIS: put your saxophone image URL between the url('...') quotes */
+      background-image: url('images/images/download-removebg-preview.png'), url('images/images/flying-v-electric-guitar-09-dark-blue-01-removebg-preview.png'), url('images/images/Gibson-Flying-V-Bass-Transparent-Blue-Ebay-Front-770x425-removebg-preview.png'), url('images/images/VAC4250-removebg-preview.png'), url('images/music-notes.png');
+      mix-blend-mode:screen;filter:grayscale(30%);
+    }
+    .hero::after{
+      /* subtle texture overlay */
+      content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.25));pointer-events:none
+    }
+
+    .hero-left{z-index:2;flex:1}
+    .hero-right{z-index:2;flex:0 0 140px;display:flex;flex-direction:column;gap:10px;align-items:center}
+
+    .name{font-size:28px;font-weight:700;margin:0}
+    .bio{color:var(--muted);margin-top:8px}
+    .tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+    .tag{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px}
+
+    .instruments{
+      display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center
+    }
+    /* small instrument accents (change paths below) */
+    .instrument{width:96px;height:64px;background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:8px;opacity:0.95}
+    .instrument.piano{background-image:url('images/piano-small.png')}
+    .instrument.guitar{background-image:url('images/images/flying v guitar small.png')}
+    .instrument.bass{background-image:url('images/bass-small.png')}
+
+    /* ---------- CONTENT AREAS ---------- */
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-top:22px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:var(--card-radius);padding:18px;border:1px solid rgba(255,255,255,0.04)}
+    h2{margin:0 0 8px 0;font-size:18px}
+    p{margin:0;color:var(--muted)}
+
+    /* Projects grid */
+    .projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .project{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+    .project a{color:#fff;text-decoration:none}
+    .project .meta{color:var(--muted);font-size:13px;margin-top:8px}
+
+    /* Fun facts list */
+    .facts{display:flex;flex-direction:column;gap:8px}
+    .fact{background:rgba(255,255,255,0.01);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+
+    /* Contact */
+    .contact a{color:var(--accent);text-decoration:none}
+
+    /* Responsive tweaks */
+    @media (max-width:920px){
+      .grid{grid-template-columns:1fr}
+      .hero{flex-direction:column;align-items:flex-start}
+      .hero-right{flex-direction:row}
+      .instrument{width:64px;height:44px}
+    }
