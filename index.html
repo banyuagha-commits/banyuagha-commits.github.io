@@ -4,109 +4,130 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Agha — Portfolio</title>
-  <!--
-    Minimalist portfolio (single HTML file)
-    - Theme: Blue & Black
-    - Background: saxophone + instrument accents (piano, guitar, bass)
-    - Comments show exactly what to change
-    How to use:
-    1. Replace image paths inside the .hero-bg CSS or below where indicated.
-    2. Edit the USER VARIABLES in the <script> area to set your name, bio, email, and GitHub username.
-    3. If you want live GitHub repos to appear, set GITHUB_FETCH = true and optionally add a GitHub token (see comments).
-  -->
 
   <style>
-    /* ---------- THEME VARIABLES (change these to tune colors) ---------- */
     :root{
-      --bg#000: #000000; /* main background */
-      --panel: #070712;   /* dark panel */
-      --accent: #0b64d6;  /* your blue */
-      --muted: #9aa6bf;   /* muted text */
+      --bg#000: #000000;
+      --panel: #070712;
+      --accent: #0b64d6;
+      --muted: #9aa6bf;
       --glass: rgba(255,255,255,0.03);
       --card-radius: 12px;
       --max-width: 980px;
     }
 
-    /* ---------- BASIC LAYOUT ---------- */
     *{box-sizing:border-box}
-    html,body{background:#000!important;color:#fff;display:flex;justify-content:center;padding:40px}
-    body{background:var(--bg#000);color:#fff;display:flex;justify-content:center;padding:40px}
-    .wrap{width:100%;max-width:var(--max-width)}
+    html,body{
+      background:#000!important;
+      color:#fff;
+      display:flex;
+      justify-content:center;
+      padding:40px;
+    }
 
-    /* ---------- HERO WITH BACKGROUND ART ---------- */
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    /* ----------------------------------------------------
+       HERO (main banner)
+    ---------------------------------------------------- */
     .hero{
-      position:relative;overflow:hidden;border-radius:18px;background:#000000;padding:48px 40px;display:flex;gap:28px;align-items:center
+      position:relative;
+      overflow:hidden;
+      border-radius:18px;
+      background:#000000;
+      padding:48px 40px;
+      display:flex;
+      gap:28px;
+      align-items:center;
     }
 
-    /* Layered artwork: update the URLs below to your own images (recommended: 1200–2000px width PNG or SVG). */
-    .hero::before{
-      /* Big faded saxophone in back */
-      content:"";position:absolute;inset:0;opacity:0.08;pointer-events:none;background-repeat:no-repeat;background-position:right center;background-size:55%;
-      /* CHANGE THIS: put your saxophone image URL between the url('...') quotes */
-      background-image: url('images/images/download-removebg-preview.png'), url('images/images/flying-v-electric-guitar-09-dark-blue-01-removebg-preview.png'), url('images/images/Gibson-Flying-V-Bass-Transparent-Blue-Ebay-Front-770x425-removebg-preview.png'), url('images/images/VAC4250-removebg-preview.png'), url('images/music-notes.png');
-      mix-blend-mode:screen;filter:grayscale(30%);
-    }
-    .hero::after{
-      /* subtle texture overlay */
-      content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.25));pointer-events:none
+    /* BACKGROUND IMAGE LAYER (CHANGES AUTOMATICALLY) */
+    .hero-bg{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:0.08;
+      pointer-events:none;
+      background-repeat:no-repeat;
+      background-position:right center;
+      background-size:55%;
+      filter:grayscale(30%);
+      mix-blend-mode:screen;
+      transition:background-image 1s ease-in-out;
     }
 
     .hero-left{z-index:2;flex:1}
     .hero-right{z-index:2;flex:0 0 140px;display:flex;flex-direction:column;gap:10px;align-items:center}
 
-    .name{font-size:28px;font-weight:700;margin:0}
-    .bio{color:var(--muted);margin-top:8px}
-    .tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-    .tag{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px}
-
-    .instruments{
-      display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center
+    .name{
+      font-size:28px;
+      font-weight:700;
+      margin:0;
     }
-    /* small instrument accents (change paths below) */
-    .instrument{width:96px;height:64px;background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:8px;opacity:0.95}
-    .instrument.piano{background-image:url('images/images/piano small.png')}
-    .instrument.guitar{background-image:url('images/images/flying v guitar small.png')}
-    .instrument.bass{background-image:url('images/images/bass small.png')}
 
-    /* ---------- CONTENT AREAS ---------- */
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-top:22px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:var(--card-radius);padding:18px;border:1px solid rgba(255,255,255,0.04)}
+    .bio{
+      color:var(--muted);
+      margin-top:8px;
+    }
+
+    .tags{
+      display:flex;
+      gap:8px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+
+    .tag{
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.03);
+      padding:6px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:24px;
+      margin-top:22px;
+    }
+
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+      border-radius:var(--card-radius);
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
     h2{margin:0 0 8px 0;font-size:18px}
     p{margin:0;color:var(--muted)}
 
-    /* Projects grid */
-    .projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-    .project{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
-    .project a{color:#fff;text-decoration:none}
-    .project .meta{color:var(--muted);font-size:13px;margin-top:8px}
-
-    /* Fun facts list */
-    .facts{display:flex;flex-direction:column;gap:8px}
-    .fact{background:rgba(255,255,255,0.01);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
-
-    /* Contact */
-    .contact a{color:var(--accent);text-decoration:none}
-
-    /* Responsive tweaks */
     @media (max-width:920px){
       .grid{grid-template-columns:1fr}
       .hero{flex-direction:column;align-items:flex-start}
-      .hero-right{flex-direction:row}
-      .instrument{width:64px;height:44px}
     }
-
   </style>
 </head>
+
 <body>
   <div class="wrap">
 
     <!-- HERO -->
     <section class="hero">
+      <div class="hero-bg" id="hero-bg"></div>
+
       <div class="hero-left">
         <h1 class="name" id="display-name">Banyu "Agha" Abyasa</h1>
-        <div class="bio" id="display-bio">Gamer, multi-instrument player — piano, guitar, bass. Jazz & pop lover, dreaming of saxophone solos.</div>
 
-        <div class="tags" id="tag-list">
+        <div class="bio" id="display-bio">
+          Gamer and multi-instrument player — piano, guitar, bass. Jazz & pop fan.
+        </div>
+
+        <div class="tags">
           <div class="tag">Video Games</div>
           <div class="tag">Piano</div>
           <div class="tag">Guitar</div>
@@ -114,136 +135,81 @@
           <div class="tag">Jazz</div>
         </div>
 
-        <!-- small call-to-action buttons (mailto / github) -->
         <div style="margin-top:16px;display:flex;gap:10px">
           <a id="mail-link" href="mailto:banyuagha@gmail.com" class="tag" style="background:var(--accent);color:#fff;border:none">Email</a>
           <a id="gh-link" href="https://github.com/banyuagha-commits" target="_blank" class="tag">GitHub</a>
+          <a href="https://www.roblox.com/users/2ndsergueras3334/profile" target="_blank" class="tag">Roblox</a>
         </div>
-      </div>
-
-      <div class="hero-right instruments">
-        <!-- These are decorative accents. Replace the image files in CSS (.instrument.*) with your own small PNGs or SVGs. -->
-        <div class="instrument piano" title="Piano"></div>
-        <div class="instrument guitar" title="Guitar"></div>
-        <div class="instrument bass" title="Bass"></div>
       </div>
     </section>
 
-    <!-- MAIN GRID: left = projects + about, right = fun facts + contact -->
+    <!-- MAIN GRID -->
     <div class="grid">
 
       <main>
         <div class="card">
           <h2>Projects</h2>
           <p style="margin-top:6px">This Portfolio</p>
-
-          <div style="margin-top:12px" id="projects" class="projects">
-  <div class="project">
-    <a href="#">This Portofolio</a>
-    <div class="meta">HTML • ⭐ 0</div>
-  </div>
-</div>
-            
-            </div>
-            
-            </div>
-          </div>
         </div>
 
         <div class="card" style="margin-top:14px">
           <h2>About</h2>
-          <p style="margin-top:8px">Hey — I'm Agha. I love games and music. Pineapples hurt my tongue; peas are the worst; and flying bugs make me run. I'm colour-blind-ish (online tests say so). I'm learning and making things every day.</p>
+          <p style="margin-top:8px">
+            Hey — I'm Agha. I love games and music. Pineapples hurt my tongue, i got hit by a motorcycle once,
+            and flying bugs are my worst nightmare. I'm probably a bit colour-blind too.
+          </p>
         </div>
       </main>
 
       <aside>
         <div class="card contact">
           <h2>Contact</h2>
-          <p style="margin-top:8px">Email: <a id="email-display" href="mailto:banyuagha@gmail.com">banyuagha@gmail.com</a></p>
-          <p style="margin-top:8px">GitHub: <a id="gh-display" href="https://github.com/banyuagha-commits" target="_blank">banyuagha-commits</a></p>
+          <p style="margin-top:8px">Email: <a href="mailto:banyuagha@gmail.com" style="color:var(--accent)">banyuagha@gmail.com</a></p>
+          <p style="margin-top:8px">GitHub: <a href="https://github.com/banyuagha-commits" target="_blank" style="color:var(--accent)">banyuagha-commits</a></p>
+
         </div>
 
         <div class="card" style="margin-top:12px">
           <h2>Fun facts</h2>
-          <div class="facts" style="margin-top:8px">
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
             <div class="fact">I hate pineapples.</div>
-            <div class="fact">I got hit by a motorcycle while i was biking.</div>
-            <div class="fact">Flying bugs = immediate panic.</div>
-            <div class="fact">I might be colour blind (online tests say so).</div>
+            <div class="fact">I got hit by a motorcycle while biking.</div>
+            <div class="fact">Flying bugs = instant panic.</div>
+            <div class="fact">Maybe colour blind? Those Google colour blind tests say yes.</div>
           </div>
         </div>
       </aside>
 
     </div>
 
-    <footer style="margin-top:18px;text-align:center;color:var(--muted);font-size:13px">Made with ❤️ •</footer>
+    <footer style="margin-top:18px;text-align:center;color:var(--muted);font-size:13px">
+      Made with ❤️
+    </footer>
 
   </div>
 
-  <!-- --------- SCRIPT: Update these variables to personalize the page --------->
+  <!-- ------------------ SCRIPT ------------------ -->
   <script>
-    /* ---------- USER VARIABLES (edit these) ---------- */
-    const USER = {
-      name: "Banyu \"Agha\" Abyasa", // change display name
-      shortBio: "Gamer, multi-instrument player — piano, guitar, bass. Jazz & pop lover, dreaming of saxophone solos.",
-      email: "banyuagha@gmail.com",
-      github: "banyuagha-commits",
-    };
+    /* ROTATING BACKGROUND IMAGES */
+    const bgImages = [
+      "images/j.michael-tn-900_p_-tenor-sax-gold-600x600-removebg-preview.png",  // sax
+      "images/flying-v-electric-guitar-09-dark-blue-01-removebg-preview.png",   // guitar
+      "images/Gibson-Flying-V-Bass-Transparent-Blue-Ebay-Front-770x425-removebg-preview.png", // bass
+      "images/VAC4250-removebg-preview.png",                                    // piano
+      "images/music_notes_PNG38-removebg-preview.png"                          // notes
+    ];
 
-    /* If you want the page to load live GitHub repos for USER.github, set GITHUB_FETCH = true.
-       Note: Fetching from file:// may be blocked by CORS. Deploy to GitHub Pages or a simple server for best results.
-       If you exceed rate limits, create a GitHub Personal Access Token and include it in the headers (see caution below).
-       CAUTION: Never commit a private token to a public repo. If you test locally, keep tokens secret.
-    */
-    const GITHUB_FETCH = false; // set to true to attempt to fetch public repos
-    const GITHUB_TOKEN = null; // optional: 'ghp_ABC...' — do NOT commit this into public code
+    let index = 0;
+    const heroBg = document.getElementById("hero-bg");
 
-    /* ---------- DOM hookup (usually you don't need to change) ---------- */
-    document.getElementById('display-name').textContent = USER.name;
-    document.getElementById('display-bio').textContent = USER.shortBio;
-    document.getElementById('mail-link').href = `mailto:${USER.email}`;
-    document.getElementById('email-display').href = `mailto:${USER.email}`;
-    document.getElementById('email-display').textContent = USER.email;
-    document.getElementById('gh-link').href = `https://github.com/${USER.github}`;
-    document.getElementById('gh-display').href = `https://github.com/${USER.github}`;
-    document.getElementById('gh-display').textContent = USER.github;
-
-    /* ---------- GitHub fetch (optional) ---------- */
-    if (GITHUB_FETCH && USER.github) {
-      const headers = { Accept: 'application/vnd.github.v3+json' };
-      if (GITHUB_TOKEN) headers.Authorization = `token ${GITHUB_TOKEN}`;
-      fetch(`https://api.github.com/users/${USER.github}/repos?per_page=100&sort=pushed`, { headers })
-        .then(r => {
-          if (!r.ok) throw new Error('Failed to fetch');
-          return r.json();
-        })
-        .then(data => {
-          const projectsEl = document.getElementById('projects');
-          projectsEl.innerHTML = ''; // clear samples
-          const filtered = data.filter(r => !r.fork).slice(0,12);
-          filtered.forEach(p => {
-            const el = document.createElement('div');
-            el.className = 'project';
-            el.innerHTML = `<a href="${p.html_url}" target="_blank">${p.name}</a>` +
-                           `<div class="meta">${p.language || '—'} • ⭐ ${p.stargazers_count || 0}</div>`;
-            projectsEl.appendChild(el);
-          });
-        })
-        .catch(err => {
-          console.warn('GitHub fetch failed:', err);
-        });
+    function switchBackground(){
+      heroBg.style.backgroundImage = `url('${bgImages[index]}')`;
+      index = (index + 1) % bgImages.length;
     }
 
-    /* ---------- How to change background art ----------
-       - Open the <style> block near the top and replace the URL in .hero::before with your saxophone image path.
-       - Replace .instrument.* background-image URLs with your small instrument images.
-       - Recommended file names used in this template:
-         - images/saxophone-large.png   (big faded background)
-         - images/piano-small.png
-         - images/guitar-small.png
-         - images/bass-small.png
-       - If you prefer SVGs, keep them high-resolution and use background-size:contain.
-    */
+    switchBackground();
+    setInterval(switchBackground, 4000); // change every 4 seconds
   </script>
+
 </body>
 </html>
